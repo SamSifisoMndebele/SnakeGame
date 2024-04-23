@@ -17,7 +17,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	static final int DELAY = 100;
 	final int[] x = new int[GAME_UNITS];
 	final int[] y = new int[GAME_UNITS];
-	int bodyParts = 6;
+	int bodyParts = 5;
 	int applesEaten;
 	int appleX;
 	int appleY;
@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	GamePanel(){
 		random = new Random();
 		this.setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));
-		this.setBackground(Color.black);
+		this.setBackground(Color.darkGray);
 		this.setFocusable(true);
 		this.addKeyListener(new MyKeyAdapter());
 		startGame();
@@ -47,19 +47,20 @@ public class GamePanel extends JPanel implements ActionListener {
 	public void draw(Graphics g) {
 		
 		if(running) {
+			g.setColor(new Color(62, 213, 21));
 			g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
 			for(int i = 0; i< bodyParts;i++) {
 				if(i == 0) {
-					g.setColor(Color.green);
+					//Snake head Color
+					g.setColor(new Color(62, 213, 21));
 					g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
 				}
 				else {
-					g.setColor(new Color(45,180,0));
-					//g.setColor(new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255)));
+					//Snake tale Color
+					g.setColor(new Color(80, 158, 61, 242));
 					g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
 				}			
 			}
-			g.setColor(Color.red);
 			g.setFont( new Font("Ink Free",Font.BOLD, 40));
 			FontMetrics metrics = getFontMetrics(g.getFont());
 			g.drawString(STR."Score: \{applesEaten}", (SCREEN_WIDTH - metrics.stringWidth(STR."Score: \{applesEaten}"))/2, g.getFont().getSize());
@@ -133,12 +134,12 @@ public class GamePanel extends JPanel implements ActionListener {
 	}
 	public void gameOver(Graphics g) {
 		//Score
-		g.setColor(Color.red);
+		g.setColor(Color.cyan);
 		g.setFont( new Font("Ink Free",Font.BOLD, 40));
 		FontMetrics metrics1 = getFontMetrics(g.getFont());
 		g.drawString(STR."Score: \{applesEaten}", (SCREEN_WIDTH - metrics1.stringWidth(STR."Score: \{applesEaten}"))/2, g.getFont().getSize());
 		//Game Over text
-		g.setColor(Color.red);
+		g.setColor(Color.cyan);
 		g.setFont( new Font("Ink Free",Font.BOLD, 75));
 		FontMetrics metrics2 = getFontMetrics(g.getFont());
 		g.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game Over"))/2, SCREEN_HEIGHT/2);
